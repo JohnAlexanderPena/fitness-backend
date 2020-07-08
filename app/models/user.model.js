@@ -21,6 +21,7 @@ const User = mongoose.model(
         ref: "Role",
       },
     ],
+    posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
   })
 );
 

@@ -1,5 +1,10 @@
 const { authJwt } = require("../middlewares");
 const controller = require("../controllers/user.controller");
+const express = require("express");
+const router = new express.Router();
+
+const User = require("../controllers/user.controller.js");
+const Post = require("../controllers/post.controller.js");
 
 module.exports = function (app) {
   app.use(function (req, res, next) {
@@ -25,4 +30,12 @@ module.exports = function (app) {
     [authJwt.verifyToken, authJwt.isAdmin],
     controller.adminBoard
   );
+
+  app.get("/", (req, res) => res.send("ok"));
+  // user routes
+  app.post("/user/find", User.find);
+  app.post("/user/find/post/:id", User.postsByUser);
+  // post routes
+  app.post("/post/create/:id", Post.create);
+  app.post("/post/populate/:id", Post.userByPost);
 };
