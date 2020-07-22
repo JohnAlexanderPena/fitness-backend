@@ -3,6 +3,7 @@
 ///– /api/test/all for public access
 
 const User = require("../models/user.model");
+const Post = require("../controllers/post.controller");
 
 exports.find = async (req, res) => {
   const user = await User.find();
@@ -21,8 +22,9 @@ exports.allAccess = (req, res) => {
 };
 
 //– /api/test/user for loggedin users (any role)
-exports.userBoard = (req, res) => {
-  res.status(200).send("User Content.");
+exports.userBoard = async (req, res) => {
+  const userPosts = await Post.userByPost;
+  res.status(200).send(userPosts);
 };
 
 //– /api/test/mod for moderator users

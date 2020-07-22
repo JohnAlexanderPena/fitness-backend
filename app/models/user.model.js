@@ -21,6 +21,11 @@ const User = mongoose.model(
         ref: "Role",
       },
     ],
+    img: {
+      type: mongoose.Schema.Types.ObjectId,
+      data: Buffer,
+      contentType: String,
+    },
     posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
   })
 );

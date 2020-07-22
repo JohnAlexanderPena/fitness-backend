@@ -10,7 +10,10 @@
     "express",
     "jwt",
     "authentication",
-    "mongodb"
+    "mongodb",
+    "upload",
+    "multiple",
+    "files"
   ],
   "author": "johnp",
   "license": "ISC",
@@ -33,6 +36,9 @@
   },
   "devDependencies": {
     "eslint": "^7.0.0",
-    "jest": "^26.0.1"
+    "jest": "^26.0.1",
+    "express": "^4.17.1",
+    "multer": "^1.4.2",
+    "multer-gridfs-storage": "^4.0.1"
   }
 }

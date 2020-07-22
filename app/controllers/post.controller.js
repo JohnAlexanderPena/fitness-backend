@@ -1,9 +1,9 @@
 const Post = require("../models/post.model");
 const User = require("../models/user.model");
+const db = require("../models");
 
 module.exports = {
   create: async (req, res) => {
-    // console.log(req);
     console.log("req body: ", req.body);
     user = req.params;
     id = user.id;
@@ -26,9 +26,19 @@ module.exports = {
     return res.send(userById);
   },
   userByPost: async (req, res) => {
+    console.log(req.params);
     const { id } = req.params;
     const userByPost = await Post.findById(id).populate("user");
     res.send(userByPost);
+  },
+
+  getAllPosts: async (req, res) => {
+    console.log(req);
+    const allposts = Post.find({});
+
+    console.log(allposts);
+
+    return res.send(JSON.stringify(allposts));
   },
 
   delete: async (req, res) => {
