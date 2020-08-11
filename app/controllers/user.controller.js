@@ -2,6 +2,7 @@
 
 ///– /api/test/all for public access
 
+const axios = require("axios");
 const User = require("../models/user.model");
 const Post = require("../controllers/post.controller");
 
@@ -17,14 +18,29 @@ exports.postsByUser = async (req, res) => {
   res.send(user.posts);
 };
 
-exports.allAccess = (req, res) => {
-  res.status(200).send("Public Content.");
+exports.allAccess = async (req, res) => {
+  const options = {
+    headers: { "X-API-key": process.env.PRO_PUBLICO_API },
+  };
+  console.log(options);
+  try {
+    return await axios.get("https://api.propublica.org/congress/v1/", {
+      options,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+
+  // console.log(process.env.PRO_PUBLICO_API);
+  // await axios({
+  //   url: "https://api.propublica.org/congress/v1/",
+  //   method: "get",
+  // });
 };
 
 //– /api/test/user for loggedin users (any role)
 exports.userBoard = async (req, res) => {
-  const userPosts = await Post.userByPost;
-  res.status(200).send(userPosts);
+  const userPosts = await res.status(200).send(userPosts);
 };
 
 //– /api/test/mod for moderator users
