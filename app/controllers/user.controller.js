@@ -1,3 +1,4 @@
+const rp = require("request-promise");
 ///Controller for testing Authorization
 
 ///– /api/test/all for public access
@@ -18,15 +19,42 @@ exports.postsByUser = async (req, res) => {
   res.send(user.posts);
 };
 
-exports.allAccess = async (req, res) => {
-  const options = {
-    headers: { "X-API-key": process.env.PRO_PUBLICO_API },
+exports.cryptoAPI = async (req, res) => {
+  const requestOptions = {
+    method: "GET",
+    uri: "https://undefined/v1/cryptocurrency/listings/latest",
+    qs: {
+      start: "1",
+      limit: "5000",
+      convert: "USD",
+    },
+    headers: {
+      "X-CMC_PRO_API_KEY": "b54bcf4d-1bca-4e8e-9a24-22ff2c3d462c",
+    },
+    json: true,
+    gzip: true,
   };
-  console.log(options);
-  try {
-    return await axios.get("https://api.propublica.org/congress/v1/", {
-      options,
+
+  rp(requestOptions)
+    .then((response) => {
+      console.log("API call response:", response);
+    })
+    .catch((err) => {
+      console.log("API call error:", err.message);
     });
+};
+
+exports.allAccess = async (req, res) => {
+  try {
+    return await axios
+      .get("https://api.propublica.org/congress/v1/116/", {
+        headers: {
+          "X-API-key": "dzndfj10HNHIdMHfvF2XrhnL6UIVs4COkM1WCwvq",
+        },
+      })
+      .then((response) => {
+        console.log(response);
+      });
   } catch (error) {
     console.error(error);
   }
