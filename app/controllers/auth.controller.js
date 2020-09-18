@@ -64,6 +64,16 @@ exports.signup = (req, res) => {
 };
 
 exports.signin = (req, res) => {
+  // var scopes = "user-read-private user-read-email";
+  // res.redirect(
+  //   "https://accounts.spotify.com/authorize" +
+  //     "?response_type=code" +
+  //     "&client_id=" +
+  //     process.env.CLIENT_ID +
+  //     (scopes ? "&scope=" + encodeURIComponent(scopes) : "") +
+  //     "&redirect_uri=" +
+  //     encodeURIComponent(process.env.redirect_uri)
+  // );
   User.findOne({
     username: req.body.username,
   })
